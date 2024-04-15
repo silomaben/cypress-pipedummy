@@ -182,7 +182,9 @@ pipeline {
                             // sh "kubectl exec -n filetracker $uiPod -- rm -r /shared/cypress"
 
                             // run cypress job 
+                            sh 'kubectl get all -n filetracker'
                             sh 'kubectl apply -f cypress-tests/kubernetes'
+
 
                             
                         } else {
