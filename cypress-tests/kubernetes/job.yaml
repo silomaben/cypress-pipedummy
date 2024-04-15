@@ -1,0 +1,24 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  namespace: filetracker
+  name: e2e-test-app-job
+spec:
+  template:
+    metadata:
+      name: e2e-test-app-pod
+    spec:
+      containers:
+        - name: e2e-test-app
+          image: silomaben/cypresse2e-tests
+          ports:
+            - containerPort: 80
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: cypress-vol
+              mountPath: /shared/cypress/reports
+      restartPolicy: Never
+      volumes:
+        - name: cypress-vol
+          persistentVolumeClaim: 
+            claimName: efs-shared  
